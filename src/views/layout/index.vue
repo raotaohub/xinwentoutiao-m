@@ -3,7 +3,6 @@
     <!-- 子路由出口 -->
     <router-view></router-view>
     <!-- 子路由出口 -->
-
     <!-- 底部导航栏 -->
     <van-tabbar v-model="active" route>
       <van-tabbar-item to="/" icon="home-o">首页</van-tabbar-item>
