@@ -11,8 +11,7 @@ const requset = axios.create({
 // 添加请求拦截器
 requset.interceptors.request.use(function (config) {
   const { user } = store.state
-  // 在发送请求之前做些什么
-  console.log(config)
+  // 在发送请求之前做些什么 若用户已经登录 统一给接口设置token
   if (user) {
     config.headers.Authorization = `Bearer ${user.token}`
   }
