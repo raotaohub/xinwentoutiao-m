@@ -14,9 +14,13 @@
     </van-nav-bar>
     <!-- 标签页组件 -->
     <van-tabs v-model="active">
-      <van-tab v-for="(i, id) in channels" :key="id" :title="i.name">
+      <van-tab
+        v-for="(channel, id) in channels"
+        :key="id"
+        :title="channel.name"
+      >
         <!-- 文章列表 组件通过v-bind传参给子组件 -->
-        <Article-List :chennel="i">{{ i.name }}的内容</Article-List>
+        <Article-List :channel="channel"></Article-List>
       </van-tab>
     </van-tabs>
   </div>
