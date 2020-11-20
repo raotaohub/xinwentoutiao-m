@@ -24,7 +24,7 @@
       >
         <van-icon
           slot="icon"
-          @click="onUserChannelClick(index)"
+          @click="onUserChannelClick(value, index)"
           :name="isEdit && index !== 0 ? 'clear' : ''"
         />
       </van-grid-item>
@@ -40,15 +40,23 @@
         :text="value.name"
         @click="onAdd(value, index)"
         clickable="true"
-      />
+      >
+        <van-icon slot="icon" :name="isEdit && index >= 0 ? 'add-o' : ''" />
+      </van-grid-item>
     </van-grid>
   </div>
 </template>
 
 <script>
-import { getAllChannels } from "@/api/channels.js";
+import {
+  getAllChannels,
+  addUserChannels,
+  deleteUserChannels,
+} from '@/api/channels.js'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 export default {
-  name: "Channle-Edit",
+  name: 'Channle-Edit',
   props: {
     userChannels: {
       type: Array,
@@ -64,57 +72,73 @@ export default {
     return {
       isEdit: false,
       allChannels: [],
-    };
+    }
   },
   computed: {
+    ...mapState(['user']),
+    // 筛选频道列表 全部频道 ——— 我的频道 === 推荐频道
     recommendChannels() {
       return this.allChannels.filter((channel) => {
         return !this.userChannels.find((find) => {
-          return find.id === channel.id;
-        });
-      });
+          return find.id === channel.id
+        })
+      })
     },
   },
   watch: {},
   methods: {
     async loadAllChannels() {
-      const { data } = await getAllChannels();
-      this.allChannels = data.data.channels;
+      const { data } = await getAllChannels()
+      this.allChannels = data.data.channels
     },
+
     // 添加频道
-    onAdd(channel, index) {
+    async onAdd(channel, index) {
+      // 若是编辑状态则 进行频道增删
       if (this.isEdit) {
-        this.userChannels.push(channel);
+        this.userChannels.push(channel)
       } else if (!this.isEdit) {
-        // 访问频道
-        this.visitChannelClick(channel, index);
+        // 若不是编辑状态则访问频道
+        this.visitChannelClick(channel, index)
       }
-      // 数据的持久化
+      // 数据持久化: 若用户登录状态 则发请求保存到先上，若非登录则保存到本地Storage
+      if (this.user) {
+        await addUserChannels({
+          channels: [{ id: channel.id, seq: this.userChannels.length }],
+        })
+      } else {
+        setItem('user-channels', this.userChannels)
+      }
     },
+
     // 删除频道
-    onUserChannelClick(index) {
+    async onUserChannelClick(channel, index) {
       if (index <= this.active) {
-        this.$emit("update-active", this.active - 1);
-      } else if (index > this.active) {
-        this.$emit("update-active", this.active);
+        this.$emit('update-active', this.active - 1)
       }
-      this.userChannels.splice(index, 1);
-      // 数据的持久化
+      this.userChannels.splice(index, 1)
+
+      // 数据的持久化 判断用户是否登入
+      if (this.user) {
+        await deleteUserChannels(channel.id)
+      } else {
+        setItem('user-channels', this.userChannels)
+      }
     },
+
     // 访问频道
     visitChannelClick(channel, index) {
       if (!this.isEdit) {
-        console.log("访问频道", index, "hello");
         // 切换频道
-        this.$emit("update-active", index);
+        this.$emit('update-active', index)
         // 关闭弹出层
-        this.$emit("close");
+        this.$emit('close')
       }
     },
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {
-    this.loadAllChannels();
+    this.loadAllChannels()
   },
   // 生命周期-挂载完成（可以访问DOM元素）
   mounted() {},
@@ -130,7 +154,7 @@ export default {
   beforeDestroy() {},
   // 生命周期-销毁完成
   activated() {},
-};
+}
 </script>
 <style lang='less' scoped>
 .channle-edit {

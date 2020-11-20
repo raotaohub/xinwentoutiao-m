@@ -16,13 +16,13 @@
 
 <script>
 export default {
-  name: "layoutIndex",
+  name: 'layoutIndex',
   data() {
     return {
       active: 0,
-    };
+    }
   },
-};
+}
 </script>
 
 <style>

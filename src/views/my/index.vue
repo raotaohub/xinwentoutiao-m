@@ -75,50 +75,50 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getCurrentUser } from "@/api/user.js";
+import { mapState } from 'vuex'
+import { getCurrentUser } from '@/api/user.js'
 export default {
-  name: "My",
+  name: 'My',
   data() {
     return {
       currentUser: {},
-    };
+    }
   },
   created() {
-    this.loadCurrentUser();
+    this.loadCurrentUser()
   },
   methods: {
     async loadCurrentUser() {
-      const { data } = await getCurrentUser();
-      this.currentUser = data.data;
+      const { data } = await getCurrentUser()
+      this.currentUser = data.data
     },
     // 退出登录
     outLogin() {
       this.$dialog
         .confirm({
-          title: "退出账号提示",
-          message: "确认退出吗？",
+          title: '退出账号提示',
+          message: '确认退出吗？',
         })
         .then(() => {
           // 清除用户登录信息
-          this.$store.commit("setUser", null);
+          this.$store.commit('setUser', null)
         })
         .catch(() => {
           // on cancel
-        });
+        })
     },
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(['user']),
   },
-};
+}
 </script>
 
 <style scoped lang="less">
 .my-container {
   .not-login {
     height: 180px;
-    background: url("./banner.png") no-repeat !important;
+    background: url('./banner.png') no-repeat !important;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -135,7 +135,7 @@ export default {
     }
   }
   .my-info {
-    background: url("./banner.png") no-repeat !important;
+    background: url('./banner.png') no-repeat !important;
     background-size: cover;
     height: 180px;
     .base-info {

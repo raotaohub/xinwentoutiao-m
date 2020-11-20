@@ -9,6 +9,7 @@
         size="small"
         icon="search"
         slot="title"
+        to="/search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -34,14 +35,15 @@
       class="channel-popup"
       v-model="isChannelShow"
       closeable
+      round
       get-container="body"
       close-icon-position="top-left"
       position="bottom"
-      style="height: 100%"
+      style="height: 96%"
     >
-      <!--  @update-active="avtive = $event" 找个$event就是自定义事件携带的参数 -->
+      <!--  @update-active="avtive = $event" ;这个$event就是自定义事件携带的参数 -->
       <ChannelEdit
-        @update-active="onUpdateActive"
+        @update-active="active = $event"
         @close="isChannelShow = false"
         :userChannels="channels"
         :active="active"
@@ -51,11 +53,13 @@
 </template>
 
 <script>
-import { getUserChanneLs } from "@/api/user.js";
-import ArticleList from "./components/article-list";
-import ChannelEdit from "./components/channel-edit";
+import { getUserChanneLs } from '@/api/user.js'
+import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 export default {
-  name: "HomeIndex",
+  name: 'HomeIndex',
   components: {
     ArticleList,
     ChannelEdit,
@@ -65,22 +69,38 @@ export default {
       isChannelShow: false,
       channels: [],
       active: 0,
-    };
+    }
+  },
+  computed: {
+    ...mapState(['user']),
   },
   created() {
-    this.loadChannels();
+    this.loadChannels()
   },
   methods: {
     async loadChannels() {
-      const { data } = await getUserChanneLs();
-      this.channels = data.data.channels;
+      let channels = []
+      if (this.user) {
+        const { data } = await getUserChanneLs()
+        channels = data.data.channels
+      } else {
+        const loadChannels = getItem('user-channels')
+        if (loadChannels) {
+          channels = loadChannels
+        } else {
+          // 如果用户没有登入且本地没有数据 则获取服务器默认的推荐列表
+          const { data } = await getUserChanneLs()
+          channels = data.data.channels
+        }
+      }
+      this.channels = channels
     },
-    onUpdateActive(index) {
-      this.active = index;
-      console.log(index);
-    },
+    // 自定义事件传值 子传父
+    // onUpdateActive(event) {
+    //   this.active = event
+    // },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

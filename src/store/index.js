@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import { getItem, setItem } from '@/utils/storage'
 Vue.use(Vuex)
 
-const USER_KEY = 'xinwen-user'
+const USER_KEY = 'xinwenUser'
 export default new Vuex.Store({
   state: {
     user: getItem(USER_KEY) // 当前用户的登录状态 Token等数据

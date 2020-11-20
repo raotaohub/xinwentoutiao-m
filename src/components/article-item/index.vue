@@ -1,7 +1,17 @@
 <template>
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: article.art_id,
+      },
+    }"
+  >
     <!-- 使用 title 插槽来自定义标题 -->
-    <div class="title" slot="title">{{ article.title }}</div>
+    <div class="title van-multi-ellipsis--l3" slot="title">
+      {{ article.title }}
+    </div>
     <div class="label" slot="label">
       <div class="cover-wrap" v-if="article.cover.type === 3">
         <van-image
@@ -28,7 +38,7 @@
 
 <script>
 export default {
-  name: "ArticleItem",
+  name: 'ArticleItem',
   props: {
     article: {
       type: Object,
@@ -37,7 +47,7 @@ export default {
   },
   components: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -50,7 +60,7 @@ export default {
   updated() {},
   beforeDestroy() {},
   activated() {},
-};
+}
 </script>
 <style lang='less' scoped>
 .article-item {

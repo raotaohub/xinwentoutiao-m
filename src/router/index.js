@@ -38,6 +38,19 @@ const routes = [
         component: () => import('@/views/my')
       },
     ]
+  },
+  {
+    path: '/search',
+    name: '/search',
+    component: () => import('@/views/search')
+  },
+  {
+    // 动态路由 : 冒号
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article'),
+    // 将动态路由的参数 映射到组件的props中
+    props: true
   }
 ]
 

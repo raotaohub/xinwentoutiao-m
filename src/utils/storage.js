@@ -1,6 +1,7 @@
 // 本地存储模块
 
 export const getItem = name => {
+  // 获取本地数据
   const data = window.localStorage.getItem(name)
   try {
     // 尝试把 data 转换成 JS 对象
@@ -11,6 +12,7 @@ export const getItem = name => {
   }
 }
 
+// 新建本地数据
 export const setItem = (name, val) => {
   // 如果val是对象 需要转换成字符串
   if (typeof val === 'object') {
