@@ -54,6 +54,6 @@ export const addFollow = (userId) => {
 export const deleteFollow = (userId) => {
   return request({
     method: 'DELETE',
-    url: `/app/v1_0/user/followings/${userId}`,
+    url: `/app/v1_0/user/followings/${userId}`
   })
 }
