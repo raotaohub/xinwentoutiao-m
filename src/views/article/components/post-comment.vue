@@ -45,6 +45,7 @@ export default {
         art_id: this.articleId ? this.articleId.toString() : null
       })
       console.log(data)
+      // 发布一个自定义事件 由父组件监听并接收 参
       this.$emit('updatePopup', data.data.new_obj)
       this.$toast('评论成功')
       this.message = ''

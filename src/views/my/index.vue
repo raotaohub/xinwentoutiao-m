@@ -25,6 +25,7 @@
           slot="right-icon"
           right-icon
           type="default"
+          to="/user/profile"
           >编辑资料</van-button
         >
       </van-cell>
@@ -81,7 +82,7 @@ export default {
   name: 'My',
   data() {
     return {
-      currentUser: {},
+      currentUser: {}
     }
   },
   created() {
@@ -97,7 +98,7 @@ export default {
       this.$dialog
         .confirm({
           title: '退出账号提示',
-          message: '确认退出吗？',
+          message: '确认退出吗？'
         })
         .then(() => {
           // 清除用户登录信息
@@ -106,11 +107,11 @@ export default {
         .catch(() => {
           // on cancel
         })
-    },
+    }
   },
   computed: {
-    ...mapState(['user']),
-  },
+    ...mapState(['user'])
+  }
 }
 </script>
 

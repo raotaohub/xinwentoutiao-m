@@ -37,13 +37,15 @@
         v-html="articleDetails.content"
         ref="article-content"
       ></div>
-      <!-- 评论 -->
+
+      <!-- 评论列表 -->
       <comment-List
         @update-total-count="updateTotalCount = $event"
         @comment-update-popup="onCommentUpdate"
         :list="commentList"
         :source="articleId"
       ></comment-List>
+      <!-- 评论列表 -->
     </div>
     <!-- 底部功能导航 -->
     <div class="article-bottom">
@@ -74,6 +76,7 @@
       v-model="isShowPopup"
       position="bottom"
       get-container="body"
+      v-if="isShowPopup"
     >
       <post-Comment :target="articleId" @updatePopup="onUpdate"></post-Comment>
     </van-popup>
@@ -84,13 +87,14 @@
       v-model="isCommentPopup"
       closeable
       position="bottom"
-      :style="{ height: '30%' }"
       get-container="body"
     >
       <comment-Reply
         :target="articleId"
+        :articleId="articleId"
         :isCommentPopup="isCommentPopup"
         :userCommentList="userCommentList"
+        v-if="isCommentPopup"
       ></comment-Reply>
     </van-popup>
   </div>

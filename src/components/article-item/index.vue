@@ -1,39 +1,42 @@
 <template>
-  <van-cell
-    class="article-item"
-    :to="{
-      name: 'article',
-      params: {
-        articleId: article.art_id,
-      },
-    }"
-  >
-    <!-- 使用 title 插槽来自定义标题 -->
-    <div class="title van-multi-ellipsis--l3" slot="title">
-      {{ article.title }}
-    </div>
-    <div class="label" slot="label">
-      <div class="cover-wrap" v-if="article.cover.type === 3">
-        <van-image
-          class="cover-wrap-item"
-          fit="cover"
-          v-for="(img, index) in article.cover.images"
-          :key="index"
-          :src="img"
-        />
+  <keep-alive>
+    <!-- article文章的动态路由入口 -->
+    <van-cell
+      class="article-item"
+      :to="{
+        name: 'article',
+        params: {
+          articleId: article.art_id
+        }
+      }"
+    >
+      <!-- 使用 title 插槽来自定义标题 -->
+      <div class="title van-multi-ellipsis--l3" slot="title">
+        {{ article.title }}
       </div>
-      <div class="label-wrap">
-        <span class="article">{{ article.aut_name }}</span>
-        <span class="article">{{ article.comm_count }}评论</span>
-        <span class="article">{{ article.pubdate | relativeTime }} </span>
+      <div class="label" slot="label">
+        <div class="cover-wrap" v-if="article.cover.type === 3">
+          <van-image
+            class="cover-wrap-item"
+            fit="cover"
+            v-for="(img, index) in article.cover.images"
+            :key="index"
+            :src="img"
+          />
+        </div>
+        <div class="label-wrap">
+          <span class="article">{{ article.aut_name }}</span>
+          <span class="article">{{ article.comm_count }}评论</span>
+          <span class="article">{{ article.pubdate | relativeTime }} </span>
+        </div>
       </div>
-    </div>
-    <van-image
-      v-if="article.cover.type === 1"
-      fit="cover"
-      :src="article.cover.images[0]"
-    />
-  </van-cell>
+      <van-image
+        v-if="article.cover.type === 1"
+        fit="cover"
+        :src="article.cover.images[0]"
+      />
+    </van-cell>
+  </keep-alive>
 </template>
 
 <script>
@@ -42,8 +45,8 @@ export default {
   props: {
     article: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {},
   data() {
@@ -59,7 +62,7 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='less' scoped>

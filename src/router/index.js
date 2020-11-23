@@ -36,7 +36,7 @@ const routes = [
         path: '/my', // 空着表示默认子路由
         name: 'my',
         component: () => import('@/views/my')
-      },
+      }
     ]
   },
   {
@@ -51,6 +51,11 @@ const routes = [
     component: () => import('@/views/article'),
     // 将动态路由的参数 映射到组件的props中
     props: true
+  },
+  {
+    path: '/user/profile',
+    name: 'userProfile',
+    component: () => import("@/views/user-profile")
   }
 ]
 

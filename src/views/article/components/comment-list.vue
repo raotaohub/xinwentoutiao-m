@@ -24,9 +24,15 @@ import CommentItem from './comment-item'
 export default {
   name: 'comment-list',
   props: {
+    // 文章ID 或 评论的ID
     source: {
       type: [Number, Object, String],
       required: true
+    },
+    // 如果获取文章的评论传 a 获取文章评论的评论传 c
+    type: {
+      type: String,
+      default: 'a'
     },
     list: {
       type: Array,
@@ -41,7 +47,6 @@ export default {
     return {
       loading: false,
       finished: false,
-      type: 'a',
       offset: null,
       limit: 10
     }
@@ -57,27 +62,28 @@ export default {
       //      若有  更新或许下一次
       //      若无  则将 finshed 设置为 false
       const { data } = await getComments({
-        // 评论类型，a-对文章(article)的评论，c-对评论(comment)的回复
-        type: 'a',
-        source: this.source.toString(),
+        type: this.type, // toString 转字符串
+        source: this.source.toString(), // 评论类型，a-对文章(article)的评论，c-对评论(comment)的回复
         offset: this.offset,
         limit: this.limit
       })
+
       this.$emit('update-total-count', data.data.total_count)
 
       const { results } = data.data
-      console.log(data)
-      // console.log(results)
+
       this.list.push(...results)
 
-      this.loading = false
+      console.log(this.list)
 
+      this.loading = false // 关闭本次的 loading
+      // 判断是否还有数据
       if (results.length) {
         this.offset = data.data.last_id
-        // console.log('有')
+        console.log('还有')
       } else {
         this.finished = true
-        // console.log('没有了')
+        console.log('没有了')
       }
     }
   },

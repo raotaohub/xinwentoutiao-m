@@ -25,16 +25,16 @@
 </template>
 
 <script>
-import ArticleItem from "@/components/article-item";
-import { getArticles } from "@/api/article";
+import ArticleItem from '@/components/article-item'
+import { getArticles } from '@/api/article'
 export default {
-  name: "ArticleList",
+  name: 'ArticleList',
   components: { ArticleItem },
   props: {
     channel: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
@@ -44,8 +44,8 @@ export default {
       timestamp: null,
       count: 0,
       isLoading: false,
-      successText: "",
-    };
+      successText: ''
+    }
   },
   methods: {
     async onLoad() {
@@ -56,18 +56,18 @@ export default {
         // 时间戳 相当于页码 请求最新数据
         timestamp: this.timestamp || Date.now(),
         // 是否包含置顶 1-包含；0-不包含；
-        with_top: 1,
-      });
+        with_top: 1
+      })
       // 2. 把数据 push 进 list 中
-      const { results } = data.data;
-      this.articles.push(...results);
+      const { results } = data.data
+      this.articles.push(...results)
       // 3. 设置 加载状态结束
-      this.loading = false;
+      this.loading = false
       // 4. 数据全部加载完成 不再触发
       if (results.length) {
-        this.timestamp = data.data.pre_timestamp;
+        this.timestamp = data.data.pre_timestamp
       } else {
-        this.finished = true;
+        this.finished = true
       }
     },
     // 下拉刷新
@@ -76,17 +76,17 @@ export default {
       const { data } = await getArticles({
         channel_id: this.channel.id,
         timestamp: Date.now(),
-        with_top: 1,
-      });
+        with_top: 1
+      })
       // 2. 把数据追加到 数组 的顶部
-      const { results } = data.data;
-      this.articles.unshift(...results);
+      const { results } = data.data
+      this.articles.unshift(...results)
       // 3. 关闭
-      this.isLoading = false;
-      this.successText = `更新了 ${results.length} 条数据`;
-    },
-  },
-};
+      this.isLoading = false
+      this.successText = `更新了 ${results.length} 条数据`
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

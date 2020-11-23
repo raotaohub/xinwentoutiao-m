@@ -22,8 +22,8 @@ export default {
   props: {
     searchValue: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {},
   data() {
@@ -32,7 +32,7 @@ export default {
       loading: false,
       finished: false,
       page: 1,
-      per_page: 10,
+      per_page: 10
     }
   },
   computed: {},
@@ -44,7 +44,7 @@ export default {
       const { data } = await getSearchResult({
         page: this.page,
         per_page: this.per_page,
-        q: this.searchValue,
+        q: this.searchValue
       })
       const { results } = data.data
       this.resultList.push(...results)
@@ -55,7 +55,7 @@ export default {
       } else {
         this.finished = false
       }
-    },
+    }
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {},
@@ -72,7 +72,7 @@ export default {
   // 生命周期-销毁之前,
   beforeDestroy() {},
   // 生命周期-销毁完成
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='less' scoped>
