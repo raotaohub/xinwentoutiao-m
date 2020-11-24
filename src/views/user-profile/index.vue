@@ -7,7 +7,15 @@
       left-arrow
       @click-left="$router.back()"
     />
-    <van-cell center title="头像" is-link>
+    <!-- accept 'image/*' 表示只能选择图片 -->
+    <input
+      type="file"
+      ref="file"
+      hidden
+      accept="image/*"
+      @change="onFileChange"
+    />
+    <van-cell center title="头像" is-link @click="$refs.file.click()">
       <van-image round fit="cover" width="36" height="36" :src="user.photo" />
     </van-cell>
     <van-cell
@@ -73,6 +81,15 @@
         @close="isBirthdayPopup = !isBirthdayPopup"
       ></update-birthday>
     </van-popup>
+    <!-- 修改用户头像 -->
+    <van-popup v-model="isPhotoPopup" position="bottom" style="height: 100%">
+      <update-photo
+        v-if="isPhotoPopup"
+        :fileObj="fileObj"
+        @close="isPhotoPopup = !isPhotoPopup"
+        @update-fileObj="user.photo = $event"
+      ></update-photo>
+    </van-popup>
   </div>
 </template>
 
@@ -81,16 +98,19 @@ import { getUserProfile } from '@/api/user.js'
 import UpdateData from './component/update-data'
 import UpdateGender from './component/update-gender.vue'
 import UpdateBirthday from './component/update-birthday.vue'
+import UpdatePhoto from './component/update-photo.vue'
 export default {
   name: 'UserProfile',
   props: {},
-  components: { UpdateData, UpdateGender, UpdateBirthday },
+  components: { UpdateData, UpdateGender, UpdateBirthday, UpdatePhoto },
   data() {
     return {
       user: {}, // 用户数据
       isShowPopup: false, // 昵称
       isGenderPopup: false, // 性别
-      isBirthdayPopup: false // 生日
+      isBirthdayPopup: false, // 生日
+      isPhotoPopup: false, // 头像
+      fileObj: null
     }
   },
   computed: {},
@@ -100,6 +120,20 @@ export default {
       const { data } = await getUserProfile()
       // 把数据放到组件的 user 中
       this.user = data.data
+    },
+
+    // 修改头像的弹出层事件
+    onFileChange() {
+      // ♥♥♥♥♥1. 把Blob对象传递给子组件 用来展示该图
+      // const blob = window.URL.createObjectURL(this.$refs.file.files[0])
+      const file = this.$refs.file.files[0]
+
+      this.fileObj = file
+
+      // 2. 打开弹出层
+      this.isPhotoPopup = true
+      // 清空 value 的值 不然选择相同的文件不会触发该 onchange 事件
+      this.$refs.file.value = ''
     }
   },
   // 生命周期-创建完成（可以访问当前this实例）

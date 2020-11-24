@@ -63,7 +63,7 @@
       />
     </van-grid>
     <van-cell class="mb-4" title="消息通知" is-link url="" />
-    <van-cell class="mb-4" title="小智同学" is-link to="" />
+    <van-cell class="mb-4" title="小智同学" is-link to="/user/chat" />
     <van-cell class="mb-4" title="我的频道" is-link to="" />
     <van-cell
       @click="outLogin"

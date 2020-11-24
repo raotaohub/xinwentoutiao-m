@@ -20,6 +20,15 @@ export const updateUserProfile = data => {
   })
 }
 
+// 编辑照片资料
+export const updateUserPhoto = data => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/photo',
+    data
+  })
+}
+
 // 登录/注册
 export const login = (data) => {
   return request({
