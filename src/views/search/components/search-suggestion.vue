@@ -20,14 +20,14 @@ export default {
   props: {
     searchValue: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {},
   data() {
     return {
       searchResult: [],
-      htmlstr: `<span style="color:red">{{str}}</span>`,
+      htmlstr: `<span style="color:red">{{str}}</span>`
     }
   },
   computed: {},
@@ -44,8 +44,8 @@ export default {
       //   console.log(this.searchResult)
       // },
       immediate: true,
-      deep: true,
-    },
+      deep: true
+    }
   },
   methods: {
     heightStr(str) {
@@ -54,7 +54,7 @@ export default {
         regStr,
         `<span style="color:red">${this.searchValue}</span>`
       )
-    },
+    }
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {},
@@ -71,7 +71,7 @@ export default {
   // 生命周期-销毁之前,
   beforeDestroy() {},
   // 生命周期-销毁完成
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='' scoped>

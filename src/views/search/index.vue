@@ -44,17 +44,17 @@ export default {
   components: {
     SeacchSuggestion,
     SeacchHistory,
-    SearchResult,
+    SearchResult
   },
   data() {
     return {
       searchValue: '',
       isResultShow: false,
-      searchHistory: [],
+      searchHistory: []
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user'])
   },
   watch: {},
   methods: {
@@ -92,7 +92,7 @@ export default {
       // }
 
       this.searchHistory = loadHistory
-    },
+    }
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {
@@ -111,7 +111,7 @@ export default {
   // 生命周期-销毁之前,
   beforeDestroy() {},
   // 生命周期-销毁完成
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='' scoped>

@@ -66,31 +66,31 @@
 </template>
 
 <script>
-import { login, sendSms } from "@/api/user.js";
-import { Toast } from "vant";
+import { login, sendSms } from '@/api/user.js'
+import { Toast } from 'vant'
 export default {
-  name: "LoginIndex",
+  name: 'LoginIndex',
   data() {
     return {
       // https://vant-contrib.gitee.io/vant/#/zh-CN/button Button组件的loding API
       isSendSmsLoding: false,
       showTime: false,
       user: {
-        mobile: "17090086870",
+        mobile: '17090086870',
         // mobile: "17666666666",
-        code: "246810",
+        code: '246810'
       },
       formRules: {
         mobile: [
-          { required: true, message: "请输入手机号" },
-          { pattern: /^1[3|5|7|8|9]\d{9}$/, message: "手机号码格式错误" },
+          { required: true, message: '请输入手机号' },
+          { pattern: /^1[3|5|7|8|9]\d{9}$/, message: '手机号码格式错误' }
         ],
         code: [
-          { required: true, message: "请填写验证码" },
-          { pattern: /^\d{6}$/, message: "验证码格式错误" },
-        ],
-      },
-    };
+          { required: true, message: '请填写验证码' },
+          { pattern: /^\d{6}$/, message: '验证码格式错误' }
+        ]
+      }
+    }
   },
   methods: {
     async onLogin() {
@@ -99,58 +99,60 @@ export default {
       // 3.请求调用登录
       // 4.处理响应结果
       Toast.loading({
-        message: "加载中...", // Vant UI登录提示
+        message: '加载中...', // Vant UI登录提示
         forbidClick: true, // 静止背景点击
-        duration: 0, // 展示时长(ms)，值为 0 时，toast 不会消失
-      });
+        duration: 0 // 展示时长(ms)，值为 0 时，toast 不会消失
+      })
       try {
-        const res = await login(this.user);
-        console.log("login-登录成功");
-        Toast.success("登录成功"); // 成功提示
+        const res = await login(this.user)
+        console.log('login-登录成功')
+        Toast.success('登录成功') // 成功提示
         // 将后端返回的用户登录状态 Token 等数据放到 Vuex 容器中
-        this.$store.commit("setUser", res.data.data);
+        this.$store.commit('setUser', res.data.data)
+        // 清除之前的 keep-alive 缓存
+        this.$store.commit('removeCachePages', 'layoutIndex')
         // 登录成功后 回到上一个页面
-        this.$router.back();
+        this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
-        console.log(err);
-        Toast.fail("登录失败", err); // 失败提示
+        console.log(err)
+        Toast.fail('登录失败', err) // 失败提示
       }
     },
     onFailed(err) {
       if (err.errors[0]) {
         Toast({
           message: err.errors[0].message,
-          position: "top",
-        });
+          position: 'top'
+        })
       }
     },
     async onSendSms() {
       try {
-        await this.$refs["login-form"].validate("mobile");
-        const res = await sendSms(this.user.mobile);
-        console.log(res);
-        this.showTime = true;
-        this.isSendSmsLoding = true;
+        await this.$refs['login-form'].validate('mobile')
+        const res = await sendSms(this.user.mobile)
+        console.log(res)
+        this.showTime = true
+        this.isSendSmsLoding = true
         // 短信成功发送，显示倒计时
       } catch (err) {
-        let message = "";
+        let message = ''
         // try 里任何代码错误都会进入 catch
         if (err && err.response && err.response.status === 429) {
-          message = "发送频繁，请稍后再试";
-        } else if (err.name === "mobile") {
-          message = "手机号码格式错误";
+          message = '发送频繁，请稍后再试'
+        } else if (err.name === 'mobile') {
+          message = '手机号码格式错误'
         } else {
-          message = "未知错误，请稍后再试";
+          message = '未知错误，请稍后再试'
         }
         Toast({
           message: message,
-          position: "top",
-        });
-        this.isSendSmsLoding = false;
+          position: 'top'
+        })
+        this.isSendSmsLoding = false
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped lang='less'>

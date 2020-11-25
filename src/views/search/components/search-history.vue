@@ -27,13 +27,13 @@ export default {
   props: {
     searchHistory: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {},
   data() {
     return {
-      historyLength: 0,
+      historyLength: 0
     }
   },
   computed: {
@@ -43,8 +43,8 @@ export default {
       },
       set: function () {
         this.historyLength = this.searchHistory.length
-      },
-    },
+      }
+    }
   },
   watch: {},
   methods: {
@@ -65,7 +65,7 @@ export default {
       setItem('search-history', this.searchHistory)
       this.isDeleteShow = false
       this.$toast('全部删除完成')
-    },
+    }
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {},
@@ -82,7 +82,7 @@ export default {
   // 生命周期-销毁之前,
   beforeDestroy() {},
   // 生命周期-销毁完成
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='' scoped>

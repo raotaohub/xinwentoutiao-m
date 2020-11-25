@@ -103,6 +103,8 @@ export default {
         .then(() => {
           // 清除用户登录信息
           this.$store.commit('setUser', null)
+          // 清除之前的 keep-alive 缓存
+          // this.$store.commit('removeCachePages', 'layoutIndex')
         })
         .catch(() => {
           // on cancel

@@ -51,7 +51,7 @@
 import {
   getAllChannels,
   addUserChannels,
-  deleteUserChannels,
+  deleteUserChannels
 } from '@/api/channels.js'
 import { mapState } from 'vuex'
 import { setItem } from '@/utils/storage'
@@ -60,18 +60,18 @@ export default {
   props: {
     userChannels: {
       type: Array,
-      required: true,
+      required: true
     },
     active: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {},
   data() {
     return {
       isEdit: false,
-      allChannels: [],
+      allChannels: []
     }
   },
   computed: {
@@ -83,7 +83,7 @@ export default {
           return find.id === channel.id
         })
       })
-    },
+    }
   },
   watch: {},
   methods: {
@@ -104,7 +104,7 @@ export default {
       // 数据持久化: 若用户登录状态 则发请求保存到先上，若非登录则保存到本地Storage
       if (this.user) {
         await addUserChannels({
-          channels: [{ id: channel.id, seq: this.userChannels.length }],
+          channels: [{ id: channel.id, seq: this.userChannels.length }]
         })
       } else {
         setItem('user-channels', this.userChannels)
@@ -134,7 +134,7 @@ export default {
         // 关闭弹出层
         this.$emit('close')
       }
-    },
+    }
   },
   // 生命周期-创建完成（可以访问当前this实例）
   created() {
@@ -153,7 +153,7 @@ export default {
   // 生命周期-销毁之前,
   beforeDestroy() {},
   // 生命周期-销毁完成
-  activated() {},
+  activated() {}
 }
 </script>
 <style lang='less' scoped>

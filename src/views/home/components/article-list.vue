@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="article-list">
     <van-pull-refresh
       v-model="isLoading"
       @refresh="onRefresh"
@@ -27,6 +27,7 @@
 <script>
 import ArticleItem from '@/components/article-item'
 import { getArticles } from '@/api/article'
+import { debounce } from '@/utils/debounce.js'
 export default {
   name: 'ArticleList',
   components: { ArticleItem },
@@ -44,7 +45,8 @@ export default {
       timestamp: null,
       count: 0,
       isLoading: false,
-      successText: ''
+      successText: '',
+      scrollTop: 0
     }
   },
   methods: {
@@ -85,6 +87,19 @@ export default {
       this.isLoading = false
       this.successText = `更新了 ${results.length} 条数据`
     }
+  },
+  mounted() {
+    const articleList = this.$refs['article-list']
+    // 给 DOM 的滚动事件 绑定一个函数 并采用防抖函数包裹
+    articleList.onscroll = debounce(() => {
+      this.scrollTop = articleList.scrollTop
+      // console.log(this.scrollTop)
+    }, 700)
+  },
+  activated() {
+    const articleList = this.$refs['article-list']
+    articleList.scrollTop = this.scrollTop
+    console.log(this.scrollTop)
   }
 }
 </script>

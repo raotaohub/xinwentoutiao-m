@@ -62,17 +62,17 @@ export default {
   name: 'HomeIndex',
   components: {
     ArticleList,
-    ChannelEdit,
+    ChannelEdit
   },
   data() {
     return {
       isChannelShow: false,
       channels: [],
-      active: 0,
+      active: 0
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user'])
   },
   created() {
     this.loadChannels()
@@ -94,12 +94,12 @@ export default {
         }
       }
       this.channels = channels
-    },
+    }
     // 自定义事件传值 子传父
     // onUpdateActive(event) {
     //   this.active = event
     // },
-  },
+  }
 }
 </script>
 
