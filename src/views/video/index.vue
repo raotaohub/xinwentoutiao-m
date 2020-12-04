@@ -6,6 +6,8 @@
       left-text
       @click-left="$router.back()"
     />
+    <van-cell><h2 style="text-align: center">模块功能开发中</h2></van-cell>
+    <van-cell><h2 style="text-align: center">模块功能开发中</h2></van-cell>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
     this.$toast.loading({
       message: '模块功能开发中···',
       forbidclick: false,
-      duration: 800
+      duration: 1000
     })
   },
   // keep-alive组件停用时
