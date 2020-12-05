@@ -7,23 +7,23 @@
 
 点击进入部署至Github_pages的线上地址 https://raotaohub.github.io/xinwentoutiao-m/
 
-- 首页 
-![首页](images/home.png)
+首页 
+![首页](images/home.png)<br>
 
 - 个人中心 支持编辑个人资料
-![个人中心](images/my.png)
+![个人中心](images/my.png)<br>
 
 
-- 文章列表，支持下拉刷新，上拉加载更多
-![文章列表](images/home.png)
+文章列表，支持下拉刷新，上拉加载更多
+![文章列表](images/home.png)<br>
 
 
-- 频道中心 支持添加删除，读取本地存储的数据
-![频道中心](images/频道.png)
+频道中心 支持添加删除，读取本地存储的数据
+![频道中心](images/频道.png)<br>
 
 
-- 对评论进行回复
-![对评论进行回复](images/评论列表.png)
+对评论进行回复
+![对评论进行回复](images/评论列表.png)<br>
 
 
 #### 下载项目,在本地任意处打开cmd/git命令栏，输入以下指令回车即可
