@@ -10,25 +10,6 @@
 https://raotaohub.github.io/xinwentoutiao-m/ 
 
 
-#### 下载项目,在本地任意处打开cmd/git命令栏，输入以下指令回车即可
-```
-git clone https://github.com/raotaohub/xinwentoutiao-m.git
-```
-#### 安装依赖
-```
-npm install
-```
-
-#### 运行项目
-```
-npm run serve
-```
-
-#### 本地打包项目
-```
-npm run build
-```
-
 - 登录及退出页
 
 ![登录及退出](images/all/登录及退出.png)<br>
@@ -49,4 +30,21 @@ npm run build
 ![文章及评论模块](images/all/文章及评论模块.png)<br>
 
 
+#### 下载项目,在本地任意处打开cmd/git命令栏，输入以下指令回车即可
+```
+git clone https://github.com/raotaohub/xinwentoutiao-m.git
+```
+#### 安装依赖
+```
+npm install
+```
 
+#### 运行项目
+```
+npm run serve
+```
+
+#### 本地打包项目
+```
+npm run build
+```
