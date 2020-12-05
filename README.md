@@ -29,28 +29,24 @@ npm run serve
 npm run build
 ```
 
-- 首页 
+- 登录及退出页
 
-![首页](images/home.png)<br>
-
-- 个人中心 支持编辑个人资料
-
-![个人中心](images/my.png)<br>
+![登录及退出](images/all/登录及退出.png)<br>
 
 
-- 文章列表，支持下拉刷新，上拉加载更多
+- 个人中心及编辑页
 
-![文章列表](images/home.png)<br>
+![个人资料编辑界面](images/all/个人资料编辑界面.png)<br>
 
 
 - 频道中心 支持添加删除，读取本地存储的数据
 
-![频道中心](images/频道.png)<br>
+![频道中心](images/all/频道模块及搜索功能.png)<br>
 
 
-- 对评论进行回复
+- 文章及评论页
 
-![对评论进行回复](images/评论列表.png)<br>
+![文章及评论模块](images/all/文章及评论模块.png)<br>
 
 
 
