@@ -4,7 +4,7 @@
 // 线上地址 由于不是纯本地的项目，需要服务器部署，这个页面无法获得到完整数据，因此暂时搁置一下！
 
 点击进入部署至Github_pages的线上地址 https://raotaohub.github.io/xinwentoutiao-m/
-
+filesystem:chrome-extension://kedhkjgdcdcmpgklneflbpnfnjgpmmnj/temporary/screencapture-localhost-8080-1607157694254.png
 ## Project setup
 ```
 npm install
